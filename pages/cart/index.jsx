@@ -110,7 +110,7 @@ const Cart = () => {
         </thead>
         <tbody>
           {currentUserCart.map((item) => (
-            <tr>
+            <tr key={item["_id"]}>
               <th scope="row">
                 <img src={item?.image} width={40} height={40} />
                 <span className="mx-1">{item?.title}</span>

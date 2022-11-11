@@ -100,8 +100,8 @@ const AddProductModal = () => {
                 Category
               </option>
               <option value="electronics">Electronics</option>
-              <option value="men's clothing">Men's Clothing</option>
-              <option value="women's clothing">Women's Clothing</option>
+              <option value="men's clothing">Men&apos;s Clothing</option>
+              <option value="women's clothing">Women&apos;s Clothing</option>
               <option value="jewelery">Jewellery</option>
             </select>
             <div className="mt-3">

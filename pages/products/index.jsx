@@ -142,6 +142,7 @@ const Products = ({ products }) => {
                 {["bg-dark", "bg-primary", "bg-success", "bg-danger"].map(
                   (bgColor) => (
                     <span
+                      key={bgColor}
                       className={`p-2 ${bgColor} border border-light rounded-circle`}
                     ></span>
                   )

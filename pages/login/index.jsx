@@ -139,7 +139,7 @@ const Login = () => {
             Login
           </button>
         </div>
-        <p className="text-muted h6 mt-3">Don't have an account?</p>
+        <p className="text-muted h6 mt-3">Don&apos;t have an account?</p>
         <div className="d-grid gap-2">
           <button
             className="btn btn-outline-danger"

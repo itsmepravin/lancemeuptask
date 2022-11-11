@@ -143,7 +143,7 @@ const Register = ({ countryData }) => {
             onChange={(e) => setRegisterCountry(e.target.value)}
           >
             {countryData?.map((country) => (
-              <option value={country?.name?.common}>
+              <option key={country?.name?.common} value={country?.name?.common}>
                 <img
                   className="mb-1 mr-3"
                   src={countryData[0]?.flags?.png}

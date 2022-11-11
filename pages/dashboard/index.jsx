@@ -110,9 +110,9 @@ const Dashboard = ({ products }) => {
           <option label="Filter By Category" value="">
             Filter By Category
           </option>
-          <option value="men's clothing">Men's Clothing</option>
+          <option value="men's clothing">Men&apos;s Clothing</option>
           <option value="electronics">Electronics</option>
-          <option value="women's clothing">Women's Clothing</option>
+          <option value="women's clothing">Women&apos;s Clothing</option>
           <option value="jewelery">Jewellery</option>
         </select>
 
@@ -170,7 +170,11 @@ const Dashboard = ({ products }) => {
         </thead>
         <tbody className="bg-white">
           {filteredProducts.map((element) => (
-            <MyDashboardData item={element} setToDeleteItem={setToDeleteItem} />
+            <MyDashboardData
+              key={element["_id"]}
+              item={element}
+              setToDeleteItem={setToDeleteItem}
+            />
           ))}
         </tbody>
       </table>
