@@ -1,4 +1,4 @@
-# @[Live](https://pravin-lancemeuptask.vercel.app/)
+# @[Live](https://lancemeuptask.vercel.app/login)
 
 ## About this project
 
