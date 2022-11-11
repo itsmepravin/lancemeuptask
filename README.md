@@ -1,34 +1,20 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# @[Live](https://pravin-lancemeuptask.vercel.app/)
 
-## Getting Started
+## About this project
 
-First, run the development server:
+This is a project I created for the application of role "Remote React Internship" for the company [Lanceme Up](https://www.linkedin.com/company/lanceme-up/). The provided days were 4 (Nov 7 2022 - Nov 11 2022). The provided task details can be found [here](https://docs.google.com/document/d/1s9vq8AGii-7oh-9_WoAjMOC0Ow-wErFsYlZvUJjyte8/edit).
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+## Project Details
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+1. Made from NextJS, MongoDB, BootStrap 5 and SASS.
+2. Login Form and Register Form have validation checks using regular expressions.
+3. Customization has been done for better UI using SASS on BootStrap.
+   This is especially visible in Login, Register and Dashboard page clearly.
+4. Normal User is redirected to products page and Admin User is redirected to dashboard page.
+5. Inside cart page, normal user can add items to the cart, and the individual item total and grand total price is dynamically calculated. User can add, delete item or increase the quantity of a said item dynamically.
+6. Inside dashboard page, admin user can add new products, delete items and search through all products using 3 filter categories.
+7. Pagination could not be implemented because of time constraints.
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+## About Me
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+If you would like to contact me, all my contact details can be found inside [my portfolio website](https://pravin-singh.netlify.app/).

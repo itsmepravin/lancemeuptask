@@ -1,0 +1,48 @@
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+$danger: rgba(171, 0, 16, 255);
+$input-focus-border-color: $danger;
+$form-check-input-checked-bg-color: $danger;
+$input-focus-box-shadow: 0px 0px 15px 2px $danger;
+$form-check-input-focus-box-shadow: 0px 0px 10px 0.5px $danger;
+$form-select-focus-box-shadow: 0 0 10px 0.5px $danger;
+
+$position-values: (
+  0: 0,
+  5: 5%,
+  10: 10%,
+  28: 28%,
+  30: 30%,
+  35: 35%,
+  50: 50%,
+  65: 65%,
+  75: 75%,
+  100: 100%,
+);
+
+/* @media (prefers-color-scheme: dark) {
+  html {
+    color-scheme: dark;
+  }
+  body {
+    color: white;
+    background: black;
+  }
+} */
+
+@import "../node_modules/bootstrap/scss/bootstrap";
