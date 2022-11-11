@@ -1,5 +1,9 @@
 # @[Live](https://lancemeuptask.vercel.app/login)
 
+### Issue 1: MongoDB keeps on displaying stale data, works fine in development mode
+
+### Fixed the issue by changing getStaticProps to getServerSideProps.
+
 ## About this project
 
 This is a project I created for the application of role "Remote React Internship" for the company [Lanceme Up](https://www.linkedin.com/company/lanceme-up/). The provided days were 4 (Nov 7 2022 - Nov 11 2022). The provided task details can be found [here](https://docs.google.com/document/d/1s9vq8AGii-7oh-9_WoAjMOC0Ow-wErFsYlZvUJjyte8/edit).
