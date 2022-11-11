@@ -89,7 +89,7 @@ const Products = ({ products }) => {
 
       <div className="row row-cols-1 row-cols-md-4 g-4 text-center">
         {products.map((product) => (
-          <div className="col">
+          <div className="col" key={product["_id"]}>
             <div
               className={`card h-100 border-0 rounded-0 shadow ${styles.cardContainer}`}
             >
