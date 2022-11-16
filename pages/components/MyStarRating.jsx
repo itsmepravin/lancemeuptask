@@ -18,7 +18,7 @@ const MyStarRating = ({ product }) => {
         {Array.from({ length: product?.rating?.rate }).map((_, index) => (
           <Image
             key={index}
-            src="/img/goldstar.png"
+            src="/img/goldStar.png"
             width={13}
             height={13}
             alt=""
