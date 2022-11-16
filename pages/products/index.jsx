@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import {
@@ -95,17 +97,17 @@ const Products = ({ products }) => {
             >
               {/* PRODUCT OVERLAY */}
               <div className="position-relative overflow-hidden">
-                {Math.round(product?.rating?.rate >= 4) ? (
+                {product?.rating?.rate >= 4 ? (
                   <div className="position-absolute top-5 start-5">
                     <span className="badge bg-info">TOP</span>
                   </div>
                 ) : null}
-                <img
-                  src={product?.image}
+                <Image
                   className="card-img-top p-4"
-                  alt=""
+                  src={product?.image}
                   width={200}
                   height={250}
+                  alt=""
                 />
                 <div className={styles.iconsOverlay}>
                   <div className={`rounded-circle ${styles.iconContainer}`}>

@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 import styles from "./Register.module.scss";
 import MyPasswordInput from "../components/MyPasswordInput";
 
@@ -144,11 +146,12 @@ const Register = ({ countryData }) => {
           >
             {countryData?.map((country) => (
               <option key={country?.name?.common} value={country?.name?.common}>
-                <img
+                <Image
                   className="mb-1 mr-3"
                   src={countryData[0]?.flags?.png}
                   width={12}
                   height={12}
+                  alt=""
                 />{" "}
                 <span>{country?.name?.common}</span>
               </option>

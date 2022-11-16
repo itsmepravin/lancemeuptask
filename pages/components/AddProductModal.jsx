@@ -35,6 +35,7 @@ const AddProductModal = () => {
         description,
         image,
       });
+
       if (res.data.success) {
         setAlertCondition("success");
         setAlertMsg(res.data.message);

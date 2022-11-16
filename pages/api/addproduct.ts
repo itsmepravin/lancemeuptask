@@ -1,11 +1,30 @@
 import clientPromise from "../../lib/mongoConnect";
 
-export default async function handler(req, res) {
-  const { title, price, category, description, image } = req.body;
+import type { NextApiRequest, NextApiResponse } from "next";
+
+type Response = {
+  success: boolean;
+  message: string;
+};
+
+type Request = {
+  title: string;
+  price: number;
+  category: string;
+  description: string;
+  image: string;
+};
+
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse<Response>
+) {
+  const { title, price, category, description, image }: Request = req.body;
 
   if (req.method !== "POST") {
     return res.status(500).json({
-      msg: "This route only accepts POST requests!",
+      success: false,
+      message: "This route only accepts POST requests!",
     });
   }
 

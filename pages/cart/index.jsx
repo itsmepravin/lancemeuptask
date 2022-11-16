@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import {
@@ -112,7 +114,7 @@ const Cart = () => {
           {currentUserCart.map((item) => (
             <tr key={item["_id"]}>
               <th scope="row">
-                <img src={item?.image} width={40} height={40} />
+                <Image src={item?.image} width={40} height={40} alt="" />
                 <span className="mx-1">{item?.title}</span>
               </th>
               <td>${item?.price}</td>

@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import {
@@ -17,7 +19,7 @@ const MyDashboardData = ({ item, setToDeleteItem }) => {
           className="p-2 border border-2 border-light rounded-circle d-flex justify-content-center align-items-center"
           style={{ width: "30px", height: "30px" }}
         >
-          <img src={item?.image} width={18} height={16} />
+          <Image src={item?.image} width={18} height={18} alt="" />
         </div>
         <span>{item?.title}</span>
       </td>

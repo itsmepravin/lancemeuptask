@@ -27,7 +27,7 @@ const MyPasswordInput = ({
   };
   return (
     <div className="position-relative mb-3">
-      <label htmlFor={id} class="form-label">
+      <label htmlFor={id} className="form-label">
         {label}
       </label>
 
