@@ -1,7 +1,7 @@
 import { createContext, Dispatch, SetStateAction } from "react";
 import { ObjectId } from "mongodb";
 
-type TypeCurrentUser = {
+export type TypeCurrentUser = {
   country: string;
   email: string;
   name: string;
@@ -58,12 +58,12 @@ interface AppContextInterface {
   };
   currentUserInfo: {
     currentUser: TypeCurrentUser;
-    setCurrentUser: Dispatch<SetStateAction<TypeCurrentUser>>;
+    setCurrentUser: Dispatch<SetStateAction<TypeCurrentUser | null>>;
     currentUserCart: TypeCurrentUserCartItem[];
     setCurrentUserCart: Dispatch<SetStateAction<TypeCurrentUserCartItem[]>>;
   };
 }
 
-const AppContext = createContext<AppContextInterface | null>(null);
+const AppContext = createContext<AppContextInterface>(null!);
 
 export default AppContext;

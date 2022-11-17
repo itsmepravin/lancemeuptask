@@ -1,17 +1,26 @@
-import Image from "next/image";
+import { GetStaticProps } from "next";
 
 import styles from "./Register.module.scss";
 import MyPasswordInput from "../components/MyPasswordInput";
 
-import { useState, useContext } from "react";
-import { useRouter } from "next/router";
+import React, { useState, useContext } from "react";
+import { useRouter, NextRouter } from "next/router";
 import AppContext from "../../context/AppContext";
 
 import axios from "axios";
 
-const Register = ({ countryData }) => {
+interface SingleCountry {
+  name: string;
+  independent: boolean;
+}
+
+interface CountryData {
+  countryData: SingleCountry[];
+}
+
+const Register = ({ countryData }: CountryData) => {
   const context = useContext(AppContext);
-  const router = useRouter();
+  const router: NextRouter = useRouter();
 
   const [checked, setChecked] = useState(false);
 
@@ -53,7 +62,7 @@ const Register = ({ countryData }) => {
     /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/
   );
 
-  const handleRegisterNameChange = (e) => {
+  const handleRegisterNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setRegisterName(e.target.value);
     if (!nameRegex) {
       setRegisterNameErrMsg("Name can only consists letters and spaces!");
@@ -62,7 +71,9 @@ const Register = ({ countryData }) => {
     }
   };
 
-  const handleRegisterEmailChange = (e) => {
+  const handleRegisterEmailChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
     setRegisterEmail(e.target.value);
     if (!emailRegex) {
       setRegisterEmailErrMsg("Please enter a valid email address.");
@@ -71,7 +82,9 @@ const Register = ({ countryData }) => {
     }
   };
 
-  const handleRegisterPasswordChange = (e) => {
+  const handleRegisterPasswordChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
     setRegisterPassword(e.target.value);
     if (!passwordRegex) {
       setRegisterPasswordErrMsg(
@@ -82,7 +95,9 @@ const Register = ({ countryData }) => {
     }
   };
 
-  const handleRegisterPasswordConChange = (e) => {
+  const handleRegisterPasswordConChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
     setRegisterPasswordCon(e.target.value);
     if (!passwordConRegex) {
       setRegisterPasswordConErrMsg(
@@ -103,7 +118,9 @@ const Register = ({ countryData }) => {
       });
       if (res.data.success && typeof window !== "undefined") {
         localStorage.setItem("currUser", JSON.stringify(res.data.user));
-        setCurrentUser(JSON.parse(localStorage.getItem("currUser")));
+        setCurrentUser(
+          JSON.parse(JSON.stringify(localStorage.getItem("currUser")))
+        );
         router.push("/products");
       }
     } catch (error) {
@@ -145,22 +162,15 @@ const Register = ({ countryData }) => {
             onChange={(e) => setRegisterCountry(e.target.value)}
           >
             {countryData?.map((country) => (
-              <option key={country?.name?.common} value={country?.name?.common}>
-                <Image
-                  className="mb-1 mr-3"
-                  src={countryData[0]?.flags?.png}
-                  width={12}
-                  height={12}
-                  alt=""
-                />{" "}
-                <span>{country?.name?.common}</span>
+              <option key={country?.name} value={country?.name}>
+                {country?.name}
               </option>
             ))}
           </select>
         </div>
 
         <div className="mb-3">
-          <label for="registerEmail" className="form-label">
+          <label htmlFor="registerEmail" className="form-label">
             Email *
           </label>
           <input
@@ -214,7 +224,7 @@ const Register = ({ countryData }) => {
               checked={checked}
               onChange={() => setChecked(!checked)}
             />
-            <label className="form-check-label" for="dropdownCheck">
+            <label className="form-check-label" htmlFor="dropdownCheck">
               I agree to all the{" "}
               <span className="text-danger text-decoration-underline">
                 Terms and Conditions
@@ -255,17 +265,16 @@ const Register = ({ countryData }) => {
   );
 };
 
-export async function getStaticProps() {
-  const response = await fetch(
-    "https://restcountries.com/v3.1/all?fields=name,flags"
+export const getStaticProps: GetStaticProps = async () => {
+  const response = await axios.get(
+    "https://restcountries.com/v2/all?fields=name"
   );
-  const countryData = await response.json();
 
   return {
     props: {
-      countryData,
+      countryData: response.data,
     },
   };
-}
+};
 
 export default Register;

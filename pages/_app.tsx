@@ -2,6 +2,7 @@ import "bootstrap/dist/css/bootstrap.css";
 import "../styles/globals.scss";
 
 import type { AppProps } from "next/app";
+import { TypeCurrentUser } from "../context/AppContext";
 
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import { config } from "@fortawesome/fontawesome-svg-core";
@@ -11,12 +12,22 @@ import { useState, useEffect } from "react";
 
 import AppContext from "../context/AppContext";
 
+import {
+  useQuery,
+  useMutation,
+  useQueryClient,
+  QueryClient,
+  QueryClientProvider,
+} from "@tanstack/react-query";
+
+const queryClient = new QueryClient();
+
 function MyApp({ Component, pageProps }: AppProps) {
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
   const [loginEmailErrMsg, setLoginEmailErrMsg] = useState("");
   const [loginPasswordErrMsg, setLoginPasswordErrMsg] = useState("");
-  const [currentUser, setCurrentUser] = useState(null);
+  const [currentUser, setCurrentUser] = useState<TypeCurrentUser>(null!);
   const [currentUserCart, setCurrentUserCart] = useState([]);
   const [registerName, setRegisterName] = useState("");
   const [registerNameErrMsg, setRegisterNameErrMsg] = useState("");
@@ -71,13 +82,15 @@ function MyApp({ Component, pageProps }: AppProps) {
   };
 
   useEffect(() => {
-    import("bootstrap/dist/js/bootstrap");
+    require("bootstrap/dist/js/bootstrap");
   }, []);
 
   return (
-    <AppContext.Provider value={state}>
-      <Component {...pageProps} />
-    </AppContext.Provider>
+    <QueryClientProvider client={queryClient}>
+      <AppContext.Provider value={state}>
+        <Component {...pageProps} />
+      </AppContext.Provider>
+    </QueryClientProvider>
   );
 }
 

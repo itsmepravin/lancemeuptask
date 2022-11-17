@@ -1,3 +1,8 @@
+global.normalUserName = "sampleuser@gmail.com";
+global.normalUserPassword = "Samplepassword123!!!";
+global.adminUserName = "admin@gmail.com";
+global.adminUserPassword = "Admin123!!!";
+
 import styles from "./Login.module.scss";
 import MyPasswordInput from "../components/MyPasswordInput";
 import MyAlert from "../components/MyAlert";
@@ -72,13 +77,13 @@ const Login = () => {
   };
 
   const handleNormalLogin = () => {
-    setLoginEmail("sampleuser@gmail.com");
-    setLoginPassword("Samplepassword123!!!");
+    setLoginEmail(global.normalUserName);
+    setLoginPassword(global.normalUserPassword);
   };
 
   const handleAdminLogin = () => {
-    setLoginEmail("admin@gmail.com");
-    setLoginPassword("Admin123!!!");
+    setLoginEmail(global.adminUserName);
+    setLoginPassword(global.adminUserPassword);
   };
 
   return (
