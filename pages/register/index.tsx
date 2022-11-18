@@ -9,16 +9,9 @@ import AppContext from "../../context/AppContext";
 
 import axios from "axios";
 
-interface SingleCountry {
-  name: string;
-  independent: boolean;
-}
+import { LoginRegisterResData, RegisterProps } from "../../context/AppContext";
 
-interface CountryData {
-  countryData: SingleCountry[];
-}
-
-const Register = ({ countryData }: CountryData) => {
+const Register = ({ countryData }: RegisterProps): JSX.Element => {
   const context = useContext(AppContext);
   const router: NextRouter = useRouter();
 
@@ -62,7 +55,9 @@ const Register = ({ countryData }: CountryData) => {
     /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/
   );
 
-  const handleRegisterNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleRegisterNameChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ): void => {
     setRegisterName(e.target.value);
     if (!nameRegex) {
       setRegisterNameErrMsg("Name can only consists letters and spaces!");
@@ -73,7 +68,7 @@ const Register = ({ countryData }: CountryData) => {
 
   const handleRegisterEmailChange = (
     e: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  ): void => {
     setRegisterEmail(e.target.value);
     if (!emailRegex) {
       setRegisterEmailErrMsg("Please enter a valid email address.");
@@ -84,7 +79,7 @@ const Register = ({ countryData }: CountryData) => {
 
   const handleRegisterPasswordChange = (
     e: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  ): void => {
     setRegisterPassword(e.target.value);
     if (!passwordRegex) {
       setRegisterPasswordErrMsg(
@@ -97,7 +92,7 @@ const Register = ({ countryData }: CountryData) => {
 
   const handleRegisterPasswordConChange = (
     e: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  ): void => {
     setRegisterPasswordCon(e.target.value);
     if (!passwordConRegex) {
       setRegisterPasswordConErrMsg(
@@ -108,7 +103,7 @@ const Register = ({ countryData }: CountryData) => {
     }
   };
 
-  const handleUserRegistration = async () => {
+  const handleUserRegistration = async (): Promise<void> => {
     try {
       const res = await axios.post("/api/register", {
         registerName,
@@ -116,8 +111,9 @@ const Register = ({ countryData }: CountryData) => {
         registerEmail,
         registerPassword,
       });
-      if (res.data.success && typeof window !== "undefined") {
-        localStorage.setItem("currUser", JSON.stringify(res.data.user));
+      const resData: LoginRegisterResData = res.data;
+      if (resData.success && typeof window !== "undefined") {
+        localStorage.setItem("currUser", JSON.stringify(resData.user));
         setCurrentUser(
           JSON.parse(JSON.stringify(localStorage.getItem("currUser")))
         );

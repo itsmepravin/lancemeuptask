@@ -9,14 +9,18 @@ import MyAlert from "../components/MyAlert";
 
 import { useState, useContext } from "react";
 import AppContext from "../../context/AppContext";
-import { useRouter } from "next/router";
+import { useRouter, NextRouter } from "next/router";
 
 import axios from "axios";
 
-const Login = () => {
+import { LoginRegisterResData } from "../../context/AppContext";
+
+import { NextPage } from "next";
+
+const Login: NextPage = (): JSX.Element => {
   const [loginErrorMsg, setLoginErrorMsg] = useState("");
   const context = useContext(AppContext);
-  const router = useRouter();
+  const router: NextRouter = useRouter();
 
   const { loginEmail, setLoginEmail, loginPassword, setLoginPassword } =
     context.loginInfo;
@@ -35,28 +39,36 @@ const Login = () => {
     /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/
   );
 
-  const handleLogin = async () => {
+  const handleLogin = async (): Promise<void> => {
     try {
-      const res = await axios.post("/api/login", { loginEmail, loginPassword });
-      if (res.data.success && typeof window !== "undefined") {
+      const res = await axios.post("/api/login", {
+        loginEmail,
+        loginPassword,
+      });
+
+      const resData: LoginRegisterResData = res.data;
+      if (resData.success && typeof window !== "undefined") {
         setLoginEmail("");
         setLoginPassword("");
-        localStorage.setItem("currUser", JSON.stringify(res.data.user));
-        setCurrentUser(JSON.parse(localStorage.getItem("currUser")));
-        if (res.data.user.role === "ADMIN") {
+        localStorage.setItem("currUser", JSON.stringify(resData.user));
+        setCurrentUser(
+          JSON.parse(JSON.stringify(localStorage.getItem("currUser")))
+        );
+        if (resData.user.role === "ADMIN") {
           router.push("/dashboard");
         } else {
           router.push("/products");
         }
       }
     } catch (error) {
-      console.log(error.response.data);
       setLoginErrorMsg(error.response.data.message);
-      setTimeout(() => setLoginErrorMsg(""), 3000);
+      setTimeout(() => setLoginErrorMsg(""), 2000);
     }
   };
 
-  const handleLoginEmailChange = (e) => {
+  const handleLoginEmailChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ): void => {
     setLoginEmail(e.target.value);
     if (!loginEmailRegex) {
       setLoginEmailErrMsg("Please enter a valid email address.");
@@ -65,7 +77,9 @@ const Login = () => {
     }
   };
 
-  const handleLoginPasswordChange = (e) => {
+  const handleLoginPasswordChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ): void => {
     setLoginPassword(e.target.value);
     if (!passwordRegex) {
       setLoginPasswordErrMsg(
@@ -76,12 +90,12 @@ const Login = () => {
     }
   };
 
-  const handleNormalLogin = () => {
+  const handleNormalLogin = (): void => {
     setLoginEmail(global.normalUserName);
     setLoginPassword(global.normalUserPassword);
   };
 
-  const handleAdminLogin = () => {
+  const handleAdminLogin = (): void => {
     setLoginEmail(global.adminUserName);
     setLoginPassword(global.adminUserPassword);
   };

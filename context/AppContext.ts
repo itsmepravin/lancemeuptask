@@ -1,19 +1,35 @@
 import { createContext, Dispatch, SetStateAction } from "react";
 import { ObjectId } from "mongodb";
 
-export type TypeCurrentUser = {
+export interface TypeCurrentUser {
   country: string;
   email: string;
   name: string;
   password: string;
   role: string;
   _id: ObjectId;
+}
+
+export type LoginRegisterResData = {
+  success: boolean;
+  user: TypeCurrentUser;
 };
 
-type TypeCurrentUserCartItem = {
+type SingleCountry = {
+  name: string;
+  independent: boolean;
+};
+
+export type RegisterProps = {
+  countryData: SingleCountry[];
+};
+
+export type ProductItem = {
+  title: string;
   category: string;
   description: string;
   id: number;
+  _id: ObjectId;
   image: string;
   price: number;
   quantity: number;
@@ -21,6 +37,19 @@ type TypeCurrentUserCartItem = {
     count: number;
     rate: number;
   };
+};
+
+export interface ProductItemProps {
+  products: ProductItem[];
+}
+
+export interface TypeCurrentUserCartItem extends ProductItem {
+  quantity: number;
+}
+
+export type TAddProduct = {
+  success: boolean;
+  message: string;
 };
 
 interface AppContextInterface {

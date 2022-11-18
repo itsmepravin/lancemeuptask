@@ -1,11 +1,33 @@
 import clientPromise from "../../lib/mongoConnect";
 
-export default async function handler(req, res) {
-  const { loginEmail, loginPassword } = req.body;
+import type { NextApiRequest, NextApiResponse } from "next";
+import { WithId, Document } from "mongodb";
+
+type LoginRequest = {
+  loginEmail: string;
+  loginPassword: string;
+};
+
+type LoginSuccessResponse = {
+  success: boolean;
+  user: WithId<Document>;
+};
+
+type LoginFailResponse = {
+  success: boolean;
+  message: string;
+};
+
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse<LoginSuccessResponse | LoginFailResponse>
+) {
+  const { loginEmail, loginPassword }: LoginRequest = req.body;
 
   if (req.method !== "POST") {
     return res.status(500).json({
-      msg: "This route only accepts POST requests!",
+      success: false,
+      message: "This route only accepts POST requests!",
     });
   }
 

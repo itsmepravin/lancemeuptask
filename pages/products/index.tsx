@@ -1,3 +1,5 @@
+import { NextPage } from "next";
+
 import Image from "next/image";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -19,16 +21,18 @@ import MyStarRating from "../components/MyStarRating";
 
 import clientPromise from "../../lib/mongoConnect";
 
-import { useRouter } from "next/router";
+import { useRouter, NextRouter } from "next/router";
 
-const Products = ({ products }) => {
-  const router = useRouter();
+import { ProductItem, ProductItemProps } from "../../context/AppContext";
+
+const Products: NextPage<ProductItemProps> = ({ products }) => {
+  const router: NextRouter = useRouter();
   const context = useContext(AppContext);
 
   const { currentUser, setCurrentUser, currentUserCart, setCurrentUserCart } =
     context.currentUserInfo;
 
-  const handleAddToCart = (item) => {
+  const handleAddToCart = (item: ProductItem) => {
     const itemExists = currentUserCart.find(
       (element) => element["_id"] === item["_id"]
     );
@@ -38,14 +42,16 @@ const Products = ({ products }) => {
   };
 
   useEffect(() => {
-    if (!JSON.parse(localStorage.getItem("currUser"))) {
+    if (!JSON.parse(JSON.stringify(localStorage.getItem("currUser")))) {
       setCurrentUser(null);
       router.push("/login");
     }
-    setCurrentUser(JSON.parse(localStorage.getItem("currUser")));
+    setCurrentUser(
+      JSON.parse(JSON.stringify(localStorage.getItem("currUser")))
+    );
   }, []);
 
-  const handleLogout = () => {
+  const handleLogout = (): void => {
     if (typeof window !== "undefined") {
       localStorage.removeItem("currUser");
       setCurrentUser(null);
@@ -91,7 +97,7 @@ const Products = ({ products }) => {
 
       <div className="row row-cols-1 row-cols-md-4 g-4 text-center">
         {products.map((product) => (
-          <div className="col" key={product["_id"]}>
+          <div className="col" key={product["_id"].toString()}>
             <div
               className={`card h-100 border-0 rounded-0 shadow ${styles.cardContainer}`}
             >
@@ -158,7 +164,7 @@ const Products = ({ products }) => {
   );
 };
 
-export async function getServerSideProps() {
+export const getServerSideProps = async () => {
   try {
     const client = await clientPromise;
     const db = client.db("lancemeup");
@@ -172,6 +178,6 @@ export async function getServerSideProps() {
   } catch (e) {
     console.error(e);
   }
-}
+};
 
 export default Products;

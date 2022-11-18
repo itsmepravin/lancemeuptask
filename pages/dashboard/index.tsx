@@ -1,5 +1,7 @@
 import clientPromise from "../../lib/mongoConnect";
 
+import { NextPage } from "next";
+
 import styles from "./Dashboard.module.scss";
 
 import MyDashboardData from "../components/MyDashboardData";
@@ -7,13 +9,15 @@ import MyDashboardData from "../components/MyDashboardData";
 import AddProductModal from "../components/AddProductModal";
 import DeleteProductModal from "../components/DeleteProductModal";
 import MyAlert from "../components/MyAlert";
-import { useRouter } from "next/router";
+import { useRouter, NextRouter } from "next/router";
 
 import { useState, useContext } from "react";
 import AppContext from "../../context/AppContext";
 
-const Dashboard = ({ products }) => {
-  const router = useRouter();
+import { ProductItemProps } from "../../context/AppContext";
+
+const Dashboard: NextPage<ProductItemProps> = ({ products }): JSX.Element => {
+  const router: NextRouter = useRouter();
   const context = useContext(AppContext);
 
   const { setCurrentUser } = context.currentUserInfo;
@@ -70,7 +74,7 @@ const Dashboard = ({ products }) => {
     filteredProducts = products;
   }
 
-  const handleLogout = () => {
+  const handleLogout = (): void => {
     if (typeof window !== "undefined") {
       localStorage.removeItem("currUser");
       setCurrentUser(null);
@@ -171,7 +175,7 @@ const Dashboard = ({ products }) => {
         <tbody className="bg-white">
           {filteredProducts.map((element) => (
             <MyDashboardData
-              key={element["_id"]}
+              key={element["_id"].toString()}
               item={element}
               setToDeleteItem={setToDeleteItem}
             />

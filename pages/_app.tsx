@@ -12,16 +12,6 @@ import { useState, useEffect } from "react";
 
 import AppContext from "../context/AppContext";
 
-import {
-  useQuery,
-  useMutation,
-  useQueryClient,
-  QueryClient,
-  QueryClientProvider,
-} from "@tanstack/react-query";
-
-const queryClient = new QueryClient();
-
 function MyApp({ Component, pageProps }: AppProps) {
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
@@ -86,11 +76,9 @@ function MyApp({ Component, pageProps }: AppProps) {
   }, []);
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <AppContext.Provider value={state}>
-        <Component {...pageProps} />
-      </AppContext.Provider>
-    </QueryClientProvider>
+    <AppContext.Provider value={state}>
+      <Component {...pageProps} />
+    </AppContext.Provider>
   );
 }
 

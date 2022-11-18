@@ -3,16 +3,20 @@ import clientPromise from "../../lib/mongoConnect";
 
 import { NextApiRequest, NextApiResponse } from "next";
 
-type Response = {
+type DelRequest = {
+  _id: ObjectId;
+};
+
+type DelResponse = {
   success: boolean;
   message: string;
 };
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<Response>
+  res: NextApiResponse<DelResponse>
 ) {
-  const { _id } = req.body;
+  const { _id }: DelRequest = req.body;
 
   try {
     const client = await clientPromise;

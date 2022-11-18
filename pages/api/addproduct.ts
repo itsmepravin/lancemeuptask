@@ -2,12 +2,12 @@ import clientPromise from "../../lib/mongoConnect";
 
 import type { NextApiRequest, NextApiResponse } from "next";
 
-type Response = {
+type AddResponse = {
   success: boolean;
   message: string;
 };
 
-type Request = {
+type AddRequest = {
   title: string;
   price: number;
   category: string;
@@ -17,9 +17,9 @@ type Request = {
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<Response>
+  res: NextApiResponse<AddResponse>
 ) {
-  const { title, price, category, description, image }: Request = req.body;
+  const { title, price, category, description, image }: AddRequest = req.body;
 
   if (req.method !== "POST") {
     return res.status(500).json({

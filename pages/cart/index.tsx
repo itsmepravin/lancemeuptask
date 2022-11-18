@@ -13,11 +13,14 @@ import styles from "./Cart.module.scss";
 
 import { useContext } from "react";
 
-import { useRouter } from "next/router";
+import { useRouter, NextRouter } from "next/router";
 import AppContext from "../../context/AppContext";
 
-const Cart = () => {
-  const router = useRouter();
+import { TypeCurrentUserCartItem } from "../../context/AppContext";
+import { NextPage } from "next";
+
+const Cart: NextPage = (): JSX.Element => {
+  const router: NextRouter = useRouter();
   const context = useContext(AppContext);
 
   const { currentUserCart, setCurrentUserCart } = context.currentUserInfo;
@@ -31,7 +34,10 @@ const Cart = () => {
       ? itemTotal.reduce((accu, currValue) => accu + currValue)
       : 0;
 
-  const handleQuantity = (value, item) => {
+  const handleQuantity = (
+    value: string,
+    item: TypeCurrentUserCartItem
+  ): void => {
     if (value === "addition") {
       const updatedCart = currentUserCart.filter((element) =>
         element["_id"] === item["_id"] ? item.quantity++ : element
@@ -48,7 +54,7 @@ const Cart = () => {
     }
   };
 
-  const handleRemoveItem = (currItem) => {
+  const handleRemoveItem = (currItem: TypeCurrentUserCartItem): void => {
     const filteredCart = currentUserCart.filter(
       (element) => element["_id"] !== currItem["_id"]
     );
@@ -112,7 +118,7 @@ const Cart = () => {
         </thead>
         <tbody>
           {currentUserCart.map((item) => (
-            <tr key={item["_id"]}>
+            <tr key={item["_id"].toString()}>
               <th scope="row">
                 <Image src={item?.image} width={40} height={40} alt="" />
                 <span className="mx-1">{item?.title}</span>

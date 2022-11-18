@@ -3,30 +3,35 @@ import styles from "./AddProductModal.module.scss";
 import axios from "axios";
 
 import { useState } from "react";
-import { useRouter } from "next/router";
+import { useRouter, NextRouter } from "next/router";
 
 import MyAlert from "./MyAlert";
 
-const AddProductModal = () => {
-  const router = useRouter();
+import { TAddProduct } from "../../context/AppContext";
+
+const AddProductModal = (): JSX.Element => {
+  const router: NextRouter = useRouter();
   const [title, setTitle] = useState("");
-  const [price, setPrice] = useState("");
+  const [price, setPrice] = useState(0);
   const [category, setCategory] = useState("electronics");
   const [description, setDescription] = useState("");
-  const [image, setImage] = useState("");
+  const [image, setImage] = useState<string | ArrayBuffer | null>(null);
 
   const [alertCondition, setAlertCondition] = useState("danger");
   const [alertMsg, setAlertMsg] = useState("");
 
-  const handleImageInput = (e) => {
+  const handleImageInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const reader = new FileReader();
-    reader.readAsDataURL(e.target.files[0]);
+    e.target.files instanceof FileList
+      ? reader.readAsDataURL(e.target.files[0])
+      : null;
+
     reader.onload = function () {
       setImage(reader.result);
     };
   };
 
-  const handleProductSubmit = async () => {
+  const handleProductSubmit = async (): Promise<void> => {
     try {
       const res = await axios.post("/api/addproduct", {
         title,
@@ -36,15 +41,17 @@ const AddProductModal = () => {
         image,
       });
 
-      if (res.data.success) {
+      const resData: TAddProduct = res.data;
+
+      if (resData.success) {
         setAlertCondition("success");
-        setAlertMsg(res.data.message);
+        setAlertMsg(resData.message);
         setTimeout(() => {
           setAlertMsg("");
           router.reload();
         }, 2000);
       } else {
-        setAlertMsg(res.data.message);
+        setAlertMsg(resData.message);
         setTimeout(() => {
           setAlertMsg("");
         }, 2000);
@@ -108,7 +115,7 @@ const AddProductModal = () => {
             <div className="mt-3">
               <textarea
                 className="form-control"
-                rows="3"
+                rows={3}
                 placeholder="Product Description"
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
