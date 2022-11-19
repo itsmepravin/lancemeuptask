@@ -2,20 +2,27 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 
-import { useState } from "react";
+import { useState, InputHTMLAttributes, FC } from "react";
 
-const MyPasswordInput = ({
+interface TPasswordInputProps extends InputHTMLAttributes<HTMLInputElement> {
+  id: string;
+  label: string | undefined;
+  errorMsg: string | undefined;
+  handlePasswordChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
+const MyPasswordInput: FC<TPasswordInputProps> = ({
   label,
   placeholder,
   id,
   value,
   handlePasswordChange,
   errorMsg,
-}) => {
+}): JSX.Element => {
   const [eyeIcon, setEyeIcon] = useState(faEyeSlash);
 
-  const handleEyeClick = (e) => {
-    const pass = document.getElementById(id);
+  const handleEyeClick = (): void => {
+    const pass = document.getElementById(id) as HTMLInputElement;
 
     if (pass.type === "password") {
       pass.type = "text";

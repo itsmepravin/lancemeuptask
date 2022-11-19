@@ -10,7 +10,19 @@ import { faPenToSquare } from "@fortawesome/free-regular-svg-icons";
 
 import styles from "./MyDashboardData.module.scss";
 
-const MyDashboardData = ({ item, setToDeleteItem }) => {
+import { Dispatch, SetStateAction, FC } from "react";
+
+import { ProductItem } from "../../context/AppContext";
+
+type TDashboardDataProps = {
+  item: ProductItem;
+  setToDeleteItem: Dispatch<SetStateAction<ProductItem>>;
+};
+
+const MyDashboardData: FC<TDashboardDataProps> = ({
+  item,
+  setToDeleteItem,
+}) => {
   return (
     <tr className={`text-center ${styles.dataContainer}`}>
       <th scope="row">{item?.id}</th>

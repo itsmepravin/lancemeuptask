@@ -32,7 +32,6 @@ export type ProductItem = {
   _id: ObjectId;
   image: string;
   price: number;
-  quantity: number;
   rating: {
     count: number;
     rate: number;
@@ -48,6 +47,11 @@ export interface TypeCurrentUserCartItem extends ProductItem {
 }
 
 export type TAddProduct = {
+  success: boolean;
+  message: string;
+};
+
+export type TDelProduct = {
   success: boolean;
   message: string;
 };

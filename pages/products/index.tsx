@@ -10,11 +10,13 @@ import {
   faInfoCircle,
   faShuffle,
 } from "@fortawesome/free-solid-svg-icons";
+
 import { faHeart } from "@fortawesome/free-regular-svg-icons";
 
 import styles from "./Products.module.scss";
 
 import { useContext, useEffect } from "react";
+
 import AppContext from "../../context/AppContext";
 
 import MyStarRating from "../components/MyStarRating";
@@ -46,8 +48,9 @@ const Products: NextPage<ProductItemProps> = ({ products }) => {
       setCurrentUser(null);
       router.push("/login");
     }
+
     setCurrentUser(
-      JSON.parse(JSON.stringify(localStorage.getItem("currUser")))
+      JSON.parse(JSON.parse(JSON.stringify(localStorage.getItem("currUser"))))
     );
   }, []);
 
@@ -142,7 +145,7 @@ const Products: NextPage<ProductItemProps> = ({ products }) => {
                 </p>
                 <h5 className="card-title">{product?.title}</h5>
                 <p className="card-text text-primary">${product?.price}</p>
-                <MyStarRating product={product} />
+                <MyStarRating rating={product?.rating} />
               </div>
 
               {/* PRODUCT RANGE OF COLORS */}

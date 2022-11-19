@@ -2,8 +2,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { faExclamationTriangle } from "@fortawesome/free-solid-svg-icons";
 import { faCheckCircle } from "@fortawesome/free-regular-svg-icons";
+import { FC } from "react";
 
-const MyAlert = ({ alertMsg, condition }) => {
+type TAlertProps = {
+  alertMsg: string;
+  condition: string;
+};
+
+const MyAlert: FC<TAlertProps> = ({ alertMsg, condition }): JSX.Element => {
   return (
     <div
       className={`alert ${

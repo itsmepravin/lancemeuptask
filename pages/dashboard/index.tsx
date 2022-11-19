@@ -14,7 +14,7 @@ import { useRouter, NextRouter } from "next/router";
 import { useState, useContext } from "react";
 import AppContext from "../../context/AppContext";
 
-import { ProductItemProps } from "../../context/AppContext";
+import { ProductItem, ProductItemProps } from "../../context/AppContext";
 
 const Dashboard: NextPage<ProductItemProps> = ({ products }): JSX.Element => {
   const router: NextRouter = useRouter();
@@ -22,7 +22,7 @@ const Dashboard: NextPage<ProductItemProps> = ({ products }): JSX.Element => {
 
   const { setCurrentUser } = context.currentUserInfo;
 
-  const [toDeleteItem, setToDeleteItem] = useState(null);
+  const [toDeleteItem, setToDeleteItem] = useState<ProductItem>(null!);
   const [deleteAlertMsg, setDeleteAlertMsg] = useState("");
 
   const [textSearch, setTextSearch] = useState("");

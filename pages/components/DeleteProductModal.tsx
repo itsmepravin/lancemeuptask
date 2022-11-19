@@ -1,18 +1,31 @@
 import axios from "axios";
-import { useRouter } from "next/router";
+import { NextRouter, useRouter } from "next/router";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 
-const DeleteProductModal = ({ currItem, setDeleteAlertMsg }) => {
-  const router = useRouter();
+import { Dispatch, SetStateAction, FC } from "react";
 
-  const handleItemDeletion = async () => {
+import { TDelProduct, ProductItem } from "../../context/AppContext";
+
+type TDelProductModalProps = {
+  currItem: ProductItem;
+  setDeleteAlertMsg: Dispatch<SetStateAction<string>>;
+};
+
+const DeleteProductModal: FC<TDelProductModalProps> = ({
+  currItem,
+  setDeleteAlertMsg,
+}): JSX.Element => {
+  const router: NextRouter = useRouter();
+
+  const handleItemDeletion = async (): Promise<void> => {
     const res = await axios.post("/api/deleteproduct", {
       _id: currItem["_id"],
     });
-    setDeleteAlertMsg(res.data.message);
+    const resData: TDelProduct = res.data;
+    setDeleteAlertMsg(resData.message);
     setTimeout(() => {
       setDeleteAlertMsg("");
       router.reload();

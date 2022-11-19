@@ -2,14 +2,15 @@ import styles from "./AddProductModal.module.scss";
 
 import axios from "axios";
 
-import { useState } from "react";
 import { useRouter, NextRouter } from "next/router";
 
 import MyAlert from "./MyAlert";
 
 import { TAddProduct } from "../../context/AppContext";
 
-const AddProductModal = (): JSX.Element => {
+import { useState, FC } from "react";
+
+const AddProductModal: FC = (): JSX.Element => {
   const router: NextRouter = useRouter();
   const [title, setTitle] = useState("");
   const [price, setPrice] = useState(0);
@@ -104,7 +105,7 @@ const AddProductModal = (): JSX.Element => {
               value={category}
               onChange={(e) => setCategory(e.target.value)}
             >
-              <option selected disabled>
+              <option value="category" disabled>
                 Category
               </option>
               <option value="electronics">Electronics</option>
