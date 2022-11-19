@@ -24,6 +24,10 @@ This is a project I created for the application of role "Remote React Internship
 1. Added typescript to the project and converted some code to TS. See /pages/api and /context.
 2. Star Rating Component shows dynamically now and does not causes build error on Vercel.
 
+## Nov 19 Commit
+
+1. Project is now fully Typescript-safe.
+
 ## About Me
 
 If you would like to contact me, all my contact details can be found inside [my portfolio website](https://pravin-singh.netlify.app/).
