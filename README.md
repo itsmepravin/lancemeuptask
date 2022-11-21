@@ -24,9 +24,12 @@ This is a project I created for the application of role "Remote React Internship
 1. Added typescript to the project and converted some code to TS. See /pages/api and /context.
 2. Star Rating Component shows dynamically now and does not causes build error on Vercel.
 
-## Nov 19 Commit
+## Nov 21 Commit
 
-1. Project is now fully Typescript-safe.
+1. Project is now almost 100% Typescript-safe.
+2. Integrated React-Query into the project, countries and products data is now fetched and cached through RQ
+   instead of getServerSideProps.
+3. New api for getting all products.
 
 ## About Me
 

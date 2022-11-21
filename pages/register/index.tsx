@@ -1,4 +1,4 @@
-import { GetStaticProps } from "next";
+import { NextPage } from "next";
 
 import styles from "./Register.module.scss";
 import MyPasswordInput from "../components/MyPasswordInput";
@@ -9,10 +9,29 @@ import AppContext from "../../context/AppContext";
 
 import axios from "axios";
 
-import { LoginRegisterResData, RegisterProps } from "../../context/AppContext";
+import { LoginRegisterResData, SingleCountry } from "../../context/AppContext";
 
-const Register = ({ countryData }: RegisterProps): JSX.Element => {
+import { useQuery } from "@tanstack/react-query";
+
+const Register: NextPage = (): JSX.Element => {
+  const useGetCountryNames = () => {
+    return useQuery({
+      queryKey: ["countries"],
+      queryFn: async () => {
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+        return axios
+          .get("https://restcountries.com/v2/all?fields=name")
+          .then((res) => res.data as SingleCountry[]);
+      },
+      retry: 0,
+      refetchOnWindowFocus: false,
+    });
+  };
+
+  const query = useGetCountryNames();
+
   const context = useContext(AppContext);
+
   const router: NextRouter = useRouter();
 
   const [checked, setChecked] = useState(false);
@@ -157,11 +176,15 @@ const Register = ({ countryData }: RegisterProps): JSX.Element => {
             value={registerCountry}
             onChange={(e) => setRegisterCountry(e.target.value)}
           >
-            {countryData?.map((country) => (
-              <option key={country?.name} value={country?.name}>
-                {country?.name}
-              </option>
-            ))}
+            {query.isLoading ? (
+              <option>Loading....</option>
+            ) : (
+              query.data?.map((country) => (
+                <option key={country?.name} value={country?.name}>
+                  {country?.name}
+                </option>
+              ))
+            )}
           </select>
         </div>
 
@@ -259,18 +282,6 @@ const Register = ({ countryData }: RegisterProps): JSX.Element => {
       </div>
     </div>
   );
-};
-
-export const getStaticProps: GetStaticProps = async () => {
-  const response = await axios.get(
-    "https://restcountries.com/v2/all?fields=name"
-  );
-
-  return {
-    props: {
-      countryData: response.data,
-    },
-  };
 };
 
 export default Register;

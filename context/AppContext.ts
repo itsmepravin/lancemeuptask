@@ -15,13 +15,9 @@ export type LoginRegisterResData = {
   user: TypeCurrentUser;
 };
 
-type SingleCountry = {
+export type SingleCountry = {
   name: string;
   independent: boolean;
-};
-
-export type RegisterProps = {
-  countryData: SingleCountry[];
 };
 
 export type ProductItem = {
